@@ -1,37 +1,89 @@
-public class inputValidator {
+package p1;
 
-    static double validateAmount(String input) throws EmptyInputException, NonNumericInputException, InvalidAmountException {
-        if (input.isEmpty()) {
+// -------------------------------------------------------------------------
+/**
+ * Checks inputs and catches exceptions in order to protect the data from
+ * invalid values.
+ * 
+ * @author Luke Stabler
+ * @version Sep 14, 2026
+ */
+public class InputValidator
+{
+
+    // ----------------------------------------------------------
+    /**
+     * Checks input to make sure its a valid input (Doubles)
+     * 
+     * @param input
+     * @return parsed double
+     * @throws EmptyInputException
+     * @throws NonNumericInputException
+     * @throws InvalidAmountException
+     */
+    static double validateAmount(String input)
+        throws EmptyInputException,
+        NonNumericInputException,
+        InvalidAmountException
+    {
+        if (input.isEmpty())
+        {
             throw new EmptyInputException("Input cannot be empty.");
         }
 
         double amount;
-        try {
+        try
+        {
             amount = Double.parseDouble(input);
-        } catch (NumberFormatException e) {
-            throw new NonNumericInputException("Input must be a numeric value.");
+        }
+        catch (NumberFormatException e)
+        {
+            throw new NonNumericInputException(
+                "Input must be a numeric value.");
         }
 
-        if (amount <= 0) {
-            throw new InvalidAmountException("Amount must be greater than zero.");
+        if (amount <= 0)
+        {
+            throw new InvalidAmountException(
+                "Amount must be greater than zero.");
         }
 
         return amount;
     }
 
-    static int validateWholeNumber(String input) throws EmptyInputException, NonNumericInputException, InvalidAmountException {
-        if (input.isEmpty()) {
+
+    // ----------------------------------------------------------
+    /**
+     * Checks input to make sure its a valid input (int)
+     * 
+     * @param input
+     * @return parsed int
+     * @throws EmptyInputException
+     * @throws NonNumericInputException
+     * @throws InvalidAmountException
+     */
+    static int validateWholeNumber(String input)
+        throws EmptyInputException,
+        NonNumericInputException,
+        InvalidAmountException
+    {
+        if (input.isEmpty())
+        {
             throw new EmptyInputException("Input cannot be empty.");
         }
 
         int number;
-        try {
+        try
+        {
             number = Integer.parseInt(input);
-        } catch (NumberFormatException e) {
+        }
+        catch (NumberFormatException e)
+        {
             throw new NonNumericInputException("Input must be a whole number.");
         }
 
-        if (number < 0) {
+        if (number < 0)
+        {
             throw new InvalidAmountException("Number must be non-negative.");
         }
 
