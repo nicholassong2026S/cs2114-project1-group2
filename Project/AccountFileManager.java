@@ -1,4 +1,9 @@
-//
+/*
+
+    Saves and loads the account to and from a file.
+
+
+*/
 public class AccountFileManager {
     
     /*
