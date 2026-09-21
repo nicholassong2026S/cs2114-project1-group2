@@ -23,7 +23,7 @@ public class Transaction {
     // ----------------------------------------------------------
     /**
      * Creates a new Transaction object with the specified type, amount,
-     * and resulting account balance. The timestamp is set to the current
+     * and resulting account balance. The timeStamp is set to the current
      * date and time.
      * 
      * @param type
@@ -70,8 +70,6 @@ public class Transaction {
      * Gets the amount moved in this transaction.
      *
      * @return the transaction amount
-     * 
-     * @return the transaction amount
      */
     public double getAmount() {
         return amount;
@@ -93,7 +91,7 @@ public class Transaction {
     /**
      * Gets the time this transaction was created.
      *
-     * @return the transaction timestamp
+     * @return the transaction timeStamp
      */
     public LocalDateTime getTimestamp() {
         return timestamp;
@@ -101,7 +99,7 @@ public class Transaction {
 
 
     /**
-     * Formats the transaction as one line: timestamp, type, amount, and
+     * Formats the transaction as one line: timeStamp, type, amount, and
      * resulting balance.
      *
      * @return the formatted transaction

@@ -21,7 +21,6 @@ public class TransactionHistory {
     /**
      * Create a new, empty TransactionHistory object.
      */
-     */
     public TransactionHistory() {
         this.transactions = new ArrayList<>();
     }
