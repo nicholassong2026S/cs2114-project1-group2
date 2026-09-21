@@ -1,4 +1,5 @@
-package src;
+package p1;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -88,6 +89,7 @@ public class Transaction {
         return timestamp;
     }
 
+
     /**
      * 
      */
@@ -95,6 +97,7 @@ public class Transaction {
     public String toString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(
             "yyyy-MM-dd HH:mm:ss");
-        return String.format("[%s] %s: $%.2f | Balance: $%.2f", timestamp.format(formatter),type, resultingBalance);
+        return String.format("[%s] %s: $%.2f | Balance: $%.2f", timestamp
+            .format(formatter), type, resultingBalance);
     }
 }
