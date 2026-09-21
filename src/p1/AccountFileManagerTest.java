@@ -14,6 +14,9 @@ import org.junit.rules.TemporaryFolder;
  */
 public class AccountFileManagerTest
 {
+    /**
+     * 
+     */
     @Rule
     public TemporaryFolder tempFolder = new TemporaryFolder();
  
