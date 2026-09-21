@@ -1,14 +1,19 @@
+package p1;
+
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
 /**
  * Holds current balance, streak count, interest rate, and any active interest
- * boost[cite: 1].
+ * boost.
  * 
- * @author Group 2: Andersson, Luke, Nicholas, Ashutosh[cite: 1]
+ * @author Group 2: Andersson, Luke, Nicholas, Ashutosh
  * @version 2026.09.21
  */
-public class Account {
+public class Account implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     private double balance;
     private int streakCount;
     private double baseInterestRate = 0.02; 
@@ -17,7 +22,7 @@ public class Account {
     private LocalDateTime lastInterestPaymentAt;
 
     /**
-     * Constructs a new account with a balance of 0.0 and a streak of 0[cite: 5].
+     * Constructs a new account with a balance of 0.0 and a streak of 0.
      */
     public Account() {
         this.balance = 0.0;
@@ -26,7 +31,7 @@ public class Account {
     }
 
     /**
-     * Constructs an account from set values[cite: 5].
+     * Constructs an account from set values.
      * 
      * @param startingBalance The initial balance retrieved from the file.
      * @param startingStreak The initial streak count retrieved from the file.
@@ -38,13 +43,13 @@ public class Account {
     }
 
     /**
-     * Adds amount to balance and increments streakCount by 1[cite: 5].
+     * Adds amount to balance and increments streakCount by 1.
      * 
      * @param amount The amount of money to deposit.
-     * @throws InvalidAmountException if the number input is not within the valid number range[cite: 5].
+     * @throws InvalidAmountException if the number input is not within the valid number range.
      */
     public void deposit(double amount) throws InvalidAmountException {
-        if (amount <= 0) {
+        if (Double.isNaN(amount) || Double.isInfinite(amount) || amount <= 0) {
             throw new InvalidAmountException("Deposit amount must be positive.");
         }
         this.balance += amount;
@@ -52,14 +57,14 @@ public class Account {
     }
 
     /**
-     * Subtracts amount from balance and resets streakCount to 0[cite: 5].
+     * Subtracts amount from balance and resets streakCount to 0.
      * 
      * @param amount The amount of money to withdraw.
-     * @throws InvalidAmountException if the number input is not within the valid number range[cite: 5].
-     * @throws InsufficientFundsException if the withdrawal amount is greater than the current balance[cite: 5].
+     * @throws InvalidAmountException if the number input is not within the valid number range.
+     * @throws InsufficientFundsException if the withdrawal amount is greater than the current balance.
      */
     public void withdraw(double amount) throws InvalidAmountException, InsufficientFundsException {
-        if (amount <= 0) {
+        if (Double.isNaN(amount) || Double.isInfinite(amount) || amount <= 0) {
             throw new InvalidAmountException("Withdrawal amount must be positive.");
         }
         if (amount > this.balance) {
@@ -70,25 +75,25 @@ public class Account {
     }
 
     /**
-     * Returns current balance[cite: 5].
+     * Returns current balance.
      * 
-     * @return The current balance in dollars[cite: 3].
+     * @return The current balance in dollars.
      */
     public double getBalance() {
         return this.balance;
     }
 
     /**
-     * Returns current streak count[cite: 5].
+     * Returns current streak count.
      * 
-     * @return Consecutive deposits with no withdrawal in between[cite: 3].
+     * @return Consecutive deposits with no withdrawal in between.
      */
     public int getStreak() {
         return this.streakCount;
     }
 
     /**
-     * Replaces current active boost with a new one[cite: 6].
+     * Replaces current active boost with a new one.
      * 
      * @param boost The InterestBoost object containing the additional rate and duration.
      */
@@ -98,7 +103,7 @@ public class Account {
     }
 
     /**
-     * Clears activeBoostRate if expired and then returns baseInterestRate plus activeBoostRate[cite: 6].
+     * Clears activeBoostRate if expired and then returns baseInterestRate plus activeBoostRate.
      * 
      * @return The combined active annual interest rate.
      */
@@ -111,8 +116,8 @@ public class Account {
     }
 
     /**
-     * Computes time since last interest payment and adds balance * getCurrentAnnualRate() * (elapsed days / 365)[cite: 6].
-     * Sets lastInterestPaymentAt to the current time[cite: 6].
+     * Computes time since last interest payment and adds balance * getCurrentAnnualRate() * (elapsed days / 365).
+     * Sets lastInterestPaymentAt to the current time.
      */
     public void payInterest() {
         LocalDateTime now = LocalDateTime.now();

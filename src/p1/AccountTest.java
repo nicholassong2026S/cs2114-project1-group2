@@ -1,7 +1,8 @@
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import java.time.Duration;
-import static org.junit.jupiter.api.Assertions.*;
+package p1;
+
+import static org.junit.Assert.*;
+import org.junit.Before;
+import org.junit.Test;
 
 /**
  * Test class for the Account methods to ensure proper balance tracking, 
@@ -12,12 +13,14 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 public class AccountTest {
 
+    private static final double DELTA = 0.001;
+
     private Account account;
 
     /**
      * Sets up a fresh account before each test.
      */
-    @BeforeEach
+    @Before
     public void setUp() {
         account = new Account();
     }
@@ -25,19 +28,21 @@ public class AccountTest {
     /**
      * Tests a normal deposit case.
      * Verifies that deposit(50.0) on a new account makes the balance 50.0 
-     * and the streak becomes 1[cite: 11].
+     * and the streak becomes 1.
+     * 
+     * @throws Exception if the deposit is unexpectedly rejected
      */
     @Test
     public void testDepositNormalCase() throws Exception {
         account.deposit(50.0);
-        assertEquals(50.0, account.getBalance());
+        assertEquals(50.0, account.getBalance(), DELTA);
         assertEquals(1, account.getStreak());
     }
 
     /**
      * Tests a bad input deposit case using a try-catch block.
      * Verifies that deposit(-5.0) throws InvalidAmountException and 
-     * the balance remains unchanged[cite: 11].
+     * the balance remains unchanged.
      */
     @Test
     public void testDepositBadInput() {
@@ -48,28 +53,33 @@ public class AccountTest {
             // Test passes if this exception is caught
         }
         
-        // Verifies the balance remains unchanged[cite: 11]
-        assertEquals(0.0, account.getBalance());
+        // Verifies the balance remains unchanged
+        assertEquals(0.0, account.getBalance(), DELTA);
+        assertEquals(0, account.getStreak());
     }
 
     /**
      * Tests a normal withdrawal case.
      * Verifies that withdraw(30.0) on a balance of 150.0 makes the balance 120.0 
-     * and streak resets to 0[cite: 11].
+     * and streak resets to 0.
+     * 
+     * @throws Exception if the withdrawal is unexpectedly rejected
      */
     @Test
     public void testWithdrawNormalCase() throws Exception {
         Account loadedAccount = new Account(150.0, 5); 
         loadedAccount.withdraw(30.0);
         
-        assertEquals(120.0, loadedAccount.getBalance());
+        assertEquals(120.0, loadedAccount.getBalance(), DELTA);
         assertEquals(0, loadedAccount.getStreak());
     }
 
     /**
      * Tests a bad input withdrawal case for insufficient funds using a try-catch block.
      * Verifies that withdraw(500.0) on a balance of 400.0 throws 
-     * InsufficientFundsException and the balance remains unchanged[cite: 11].
+     * InsufficientFundsException and the balance remains unchanged.
+     * 
+     * @throws InvalidAmountException if the amount is unexpectedly invalid
      */
     @Test
     public void testWithdrawBadInput() throws InvalidAmountException {
@@ -82,28 +92,33 @@ public class AccountTest {
             // Test passes if this exception is caught
         }
         
-        // Verifies the balance remains unchanged[cite: 11]
-        assertEquals(400.0, loadedAccount.getBalance());
+        // Verifies the balance remains unchanged
+        assertEquals(400.0, loadedAccount.getBalance(), DELTA);
+        assertEquals(2, loadedAccount.getStreak());
     }
 
     /**
      * Tests getting the balance.
      * Verifies that called after deposit(20.0) on a new account returns 20.0, 
-     * and called on a new Account returns 0.0 instead of null[cite: 11].
+     * and called on a new Account returns 0.0 instead of null.
+     * 
+     * @throws Exception if the deposit is unexpectedly rejected
      */
     @Test
     public void testGetBalanceNormalAndBad() throws Exception {
         account.deposit(20.0);
-        assertEquals(20.0, account.getBalance());
+        assertEquals(20.0, account.getBalance(), DELTA);
         
         Account newAccount = new Account();
-        assertEquals(0.0, newAccount.getBalance());
+        assertEquals(0.0, newAccount.getBalance(), DELTA);
     }
 
     /**
      * Tests getting the streak count.
      * Verifies two deposits in a row returns 2, and one deposit then 
-     * one withdrawal returns 0[cite: 11].
+     * one withdrawal returns 0.
+     * 
+     * @throws Exception if a deposit or withdrawal is unexpectedly rejected
      */
     @Test
     public void testGetStreak() throws Exception {

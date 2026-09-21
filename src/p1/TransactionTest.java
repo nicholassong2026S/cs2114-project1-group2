@@ -1,17 +1,17 @@
 package p1;
 
-import student.TestCase;
+import static org.junit.Assert.*;
+import org.junit.Before;
+import org.junit.Test;
 
 // -------------------------------------------------------------------------
 /**
- * Write a one-sentence summary of your class here.
- * Follow it with additional details about its purpose, what abstraction
- * it represents, and how to use it.
+ * Tests the Transaction class.
  * 
  * @author galve
  * @version Sep 14, 2026
  */
-public class TransactionTest extends TestCase {
+public class TransactionTest {
     // ~ Fields ................................................................
 
     private Transaction validDeposit;
@@ -24,6 +24,7 @@ public class TransactionTest extends TestCase {
     /**
      * 
      */
+    @Before
     public void setUp() {
         validDeposit = new Transaction("DEPOSIT", 50.0, 150.0);
     }
@@ -31,8 +32,9 @@ public class TransactionTest extends TestCase {
 
     // ----------------------------------------------------------
     /**
-     * Place a description of your method here.
+     * Tests that a valid transaction stores its fields.
      */
+    @Test
     public void testValidTransactionCreation() {
         assertEquals("DEPOSIT", validDeposit.getType());
         assertEquals(50.0, validDeposit.getAmount(), 0.001);
@@ -46,6 +48,7 @@ public class TransactionTest extends TestCase {
      * Tests the normal case of creating a valid transaction and
      * verifying the getter methods return expected values.
      */
+    @Test
     public void testValidTransaction() {
         assertEquals("DEPOSIT", validDeposit.getType());
         assertEquals(50.0, validDeposit.getAmount(), 0.01);
@@ -57,6 +60,7 @@ public class TransactionTest extends TestCase {
     /**
      * Tests the bad input case of providing a negative transaction amount.
      */
+    @Test
     public void testNegativeAmountTransaction() {
         try {
             validDeposit = new Transaction("WITHDRAW", -50.0, 150.0);
@@ -73,6 +77,7 @@ public class TransactionTest extends TestCase {
     /**
      * Tests providing an invalid string for the transaction type.
      */
+    @Test
     public void testInvalidTypeTransaction() {
         try {
             validDeposit = new Transaction("TRANSFER", 50.0, 150.0);

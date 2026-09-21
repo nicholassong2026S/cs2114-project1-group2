@@ -1,19 +1,19 @@
 package p1;
 
-import student.TestCase;
+import static org.junit.Assert.*;
+import org.junit.Before;
+import org.junit.Test;
 
 import java.util.List;
 
 // -------------------------------------------------------------------------
 /**
- * Write a one-sentence summary of your class here.
- * Follow it with additional details about its purpose, what abstraction
- * it represents, and how to use it.
+ * Tests the TransactionHistory class.
  * 
  * @author galve
  * @version Sep 14, 2026
  */
-public class TransactionHistoryTest extends TestCase {
+public class TransactionHistoryTest {
     // ~ Fields ................................................................
 
     private TransactionHistory history;
@@ -29,6 +29,7 @@ public class TransactionHistoryTest extends TestCase {
     /**
      * 
      */
+    @Before
     public void setUp() {
         history = new TransactionHistory();
         t1 = new Transaction("DEPOSIT", 100.0, 100.0);
@@ -41,6 +42,7 @@ public class TransactionHistoryTest extends TestCase {
     /**
      * 
      */
+    @Test
     public void testAddAndRetrieveTransactions() {
         history.addTransaction(t1);
         history.addTransaction(t2);
@@ -59,6 +61,7 @@ public class TransactionHistoryTest extends TestCase {
     /**
      * 
      */
+    @Test
     public void testEmptyHistory() {
         List<Transaction> list = history.getAllTransactions();
         assertNotNull("List should be empty, not null", list);
@@ -70,6 +73,7 @@ public class TransactionHistoryTest extends TestCase {
     /**
      * 
      */
+    @Test
     public void testAddNullTransaction() {
         try {
             history.addTransaction(null);

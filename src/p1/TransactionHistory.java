@@ -19,6 +19,9 @@ public class TransactionHistory {
 
     // ~ Constructors ..........................................................
 
+    /**
+     * Create a new, empty TransactionHistory.
+     */
     public TransactionHistory() {
         this.transactions = new ArrayList<>();
     }
@@ -28,9 +31,10 @@ public class TransactionHistory {
 
     // ----------------------------------------------------------
     /**
-     * Place a description of your method here.
+     * Adds a transaction to the end of the history.
      * 
-     * @param t
+     * @param t the transaction to add
+     * @throws IllegalArgumentException if t is null
      */
     public void addTransaction(Transaction t) {
         if (t == null) {
@@ -43,9 +47,9 @@ public class TransactionHistory {
 
     // ----------------------------------------------------------
     /**
-     * Place a description of your method here.
+     * Returns a copy of the history in chronological order.
      * 
-     * @return
+     * @return a new list of all transactions
      */
     public List<Transaction> getAllTransactions() {
         return new ArrayList<>(transactions);
@@ -54,7 +58,7 @@ public class TransactionHistory {
 
     // ----------------------------------------------------------
     /**
-     * Place a description of your method here.
+     * Prints every transaction, one per line, or a message if there are none.
      */
     public void printHistory() {
         if (transactions.isEmpty()) {
