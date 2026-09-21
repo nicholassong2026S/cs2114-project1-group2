@@ -11,6 +11,8 @@ package p1;
 public class InsufficientStreakCoinsException
     extends Exception
 {
+    private static final long serialVersionUID = 1L;
+
     // ----------------------------------------------------------
     /**
      * Create a new InsufficientStreakCoinsException object.

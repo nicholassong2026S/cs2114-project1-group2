@@ -42,6 +42,14 @@ public class InputValidator
                 "Input must be a numeric value.");
         }
 
+        // Double.parseDouble accepts "NaN" and "Infinity", which are not real
+        // dollar amounts (and NaN slips past the <= 0 check below).
+        if (Double.isNaN(amount) || Double.isInfinite(amount))
+        {
+            throw new NonNumericInputException(
+                "Input must be a numeric value.");
+        }
+
         if (amount <= 0)
         {
             throw new InvalidAmountException(

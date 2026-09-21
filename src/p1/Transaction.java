@@ -22,19 +22,11 @@ public class Transaction {
     // ~ Constructors ..........................................................
     // ----------------------------------------------------------
     /**
-     * Creates a new Transaction object with the specified type, amount,
-     * and resulting account balance. The timeStamp is set to the current
-     * date and time.
+     * Create a new Transaction object.
      * 
-     * @param type
-     *            the type of transaction, either "DEPOSIT" or "WITHDRAW"
-     * @param amount
-     *            the amount of money involved in the transaction
-     * @param resultingBalance
-     *            the account balance after the transaction
-     * @throws IllegalArgumentException
-     *             if the amount is negative or the
-     *             transaction type is invalid.
+     * @param type "DEPOSIT" or "WITHDRAW" (case-insensitive)
+     * @param amount the amount moved (must not be negative)
+     * @param resultingBalance the account balance after the transaction
      */
     public Transaction(String type, double amount, double resultingBalance) {
         if (amount < 0) {
@@ -57,8 +49,8 @@ public class Transaction {
     // ----------------------------------------------------------
     /**
      * Gets the transaction type.
-     *
-     * @return the transaction type, either "DEPOSIT" or "WITHDRAW"
+     * 
+     * @return "DEPOSIT" or "WITHDRAW"
      */
     public String getType() {
         return type;
@@ -68,7 +60,7 @@ public class Transaction {
     // ----------------------------------------------------------
     /**
      * Gets the amount moved in this transaction.
-     *
+     * 
      * @return the transaction amount
      */
     public double getAmount() {
@@ -79,8 +71,8 @@ public class Transaction {
     // ----------------------------------------------------------
     /**
      * Gets the account balance after this transaction.
-     *
-     * @return the resulting account balance
+     * 
+     * @return the resulting balance
      */
     public double getResultingBalance() {
         return resultingBalance;
@@ -90,8 +82,8 @@ public class Transaction {
     // ----------------------------------------------------------
     /**
      * Gets the time this transaction was created.
-     *
-     * @return the transaction timeStamp
+     * 
+     * @return the timestamp
      */
     public LocalDateTime getTimestamp() {
         return timestamp;
@@ -99,9 +91,9 @@ public class Transaction {
 
 
     /**
-     * Formats the transaction as one line: timeStamp, type, amount, and
+     * Formats the transaction as one line: timestamp, type, amount, and
      * resulting balance.
-     *
+     * 
      * @return the formatted transaction
      */
     @Override
