@@ -1,20 +1,24 @@
 package p1;
 
-import static org.junit.Assert.*;
-import org.junit.Before;
-import org.junit.Test;
+import student.TestCase;
 
 // -------------------------------------------------------------------------
 /**
+<<<<<<< HEAD
  * Tests the Transaction class.
  * This test class verifies that transactions are created correctly,
  * invalid transaction data is rejected, and transaction information
  * can be retrieved as expected.
+=======
+ * Write a one-sentence summary of your class here.
+ * Follow it with additional details about its purpose, what abstraction
+ * it represents, and how to use it.
+>>>>>>> parent of c60b1df (Overhaul)
  * 
  * @author galve
  * @version Sep 14, 2026
  */
-public class TransactionTest {
+public class TransactionTest extends TestCase {
     // ~ Fields ................................................................
 
     private Transaction validDeposit;
@@ -27,7 +31,6 @@ public class TransactionTest {
     /**
      * Creates a valid deposit transaction for use in the test methods.
      */
-    @Before
     public void setUp() {
         validDeposit = new Transaction("DEPOSIT", 50.0, 150.0);
     }
@@ -35,9 +38,8 @@ public class TransactionTest {
 
     // ----------------------------------------------------------
     /**
-     * Tests that a valid transaction stores its fields.
+     * Place a description of your method here.
      */
-    @Test
     public void testValidTransactionCreation() {
         assertEquals("DEPOSIT", validDeposit.getType());
         assertEquals(50.0, validDeposit.getAmount(), 0.001);
@@ -51,7 +53,6 @@ public class TransactionTest {
      * Tests the normal case of creating a valid transaction and
      * verifying the getter methods return expected values.
      */
-    @Test
     public void testValidTransaction() {
         assertEquals("DEPOSIT", validDeposit.getType());
         assertEquals(50.0, validDeposit.getAmount(), 0.01);
@@ -63,7 +64,6 @@ public class TransactionTest {
     /**
      * Tests the bad input case of providing a negative transaction amount.
      */
-    @Test
     public void testNegativeAmountTransaction() {
         try {
             validDeposit = new Transaction("WITHDRAW", -50.0, 150.0);
@@ -80,7 +80,6 @@ public class TransactionTest {
     /**
      * Tests providing an invalid string for the transaction type.
      */
-    @Test
     public void testInvalidTypeTransaction() {
         try {
             validDeposit = new Transaction("TRANSFER", 50.0, 150.0);

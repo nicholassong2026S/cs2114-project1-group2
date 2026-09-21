@@ -18,10 +18,14 @@ public class TransactionHistory {
     private List<Transaction> transactions;
 
     // ~ Constructors ..........................................................
+<<<<<<< HEAD
     /**
      * Create a new, empty TransactionHistory object.
      */
      */
+=======
+
+>>>>>>> parent of c60b1df (Overhaul)
     public TransactionHistory() {
         this.transactions = new ArrayList<>();
     }
@@ -31,6 +35,7 @@ public class TransactionHistory {
 
     // ----------------------------------------------------------
     /**
+<<<<<<< HEAD
     /**
      * Adds a transaction to the end of the history.
      *
@@ -39,6 +44,11 @@ public class TransactionHistory {
      * @throws IllegalArgumentException
      *             if the transaction is null.
      */
+=======
+     * Place a description of your method here.
+     * 
+     * @param t
+>>>>>>> parent of c60b1df (Overhaul)
      */
     public void addTransaction(Transaction t) {
         if (t == null) {
@@ -51,11 +61,17 @@ public class TransactionHistory {
 
     // ----------------------------------------------------------
     /**
+<<<<<<< HEAD
     /**
      * Returns a copy of the history in chronological order.
      *
      * @return a list containing all recorded transactions.
      */
+=======
+     * Place a description of your method here.
+     * 
+     * @return
+>>>>>>> parent of c60b1df (Overhaul)
      */
     public List<Transaction> getAllTransactions() {
         return new ArrayList<>(transactions);
@@ -64,8 +80,12 @@ public class TransactionHistory {
 
     // ----------------------------------------------------------
     /**
+<<<<<<< HEAD
     /**
      * Prints every transaction, one per line, or a message if there are none.
+=======
+     * Place a description of your method here.
+>>>>>>> parent of c60b1df (Overhaul)
      */
      */
     public void printHistory() {

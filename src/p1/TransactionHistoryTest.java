@@ -1,21 +1,25 @@
 package p1;
 
-import static org.junit.Assert.*;
-import org.junit.Before;
-import org.junit.Test;
+import student.TestCase;
 
 import java.util.List;
 
 // -------------------------------------------------------------------------
 /**
+<<<<<<< HEAD
  * Tests the TransactionHistory class.
  * These tests verify that transactions can be added and retrieved,
  * an empty history behaves correctly, and null transactions are rejected.
+=======
+ * Write a one-sentence summary of your class here.
+ * Follow it with additional details about its purpose, what abstraction
+ * it represents, and how to use it.
+>>>>>>> parent of c60b1df (Overhaul)
  * 
  * @author galve
  * @version Sep 14, 2026
  */
-public class TransactionHistoryTest {
+public class TransactionHistoryTest extends TestCase {
     // ~ Fields ................................................................
 
     private TransactionHistory history;
@@ -32,7 +36,6 @@ public class TransactionHistoryTest {
      * Creates a new transaction history and sample transactions
      * used by the test methods.
      */
-    @Before
     public void setUp() {
         history = new TransactionHistory();
         t1 = new Transaction("DEPOSIT", 100.0, 100.0);
@@ -46,7 +49,6 @@ public class TransactionHistoryTest {
      * Tests that transactions can be added to the history and
      * retrieved in the order they were added.
      */
-    @Test
     public void testAddAndRetrieveTransactions() {
         history.addTransaction(t1);
         history.addTransaction(t2);
@@ -66,7 +68,6 @@ public class TransactionHistoryTest {
      * Tests that a newly created transaction history is empty
      * and returns a non-null list of transactions.
      */
-    @Test
     public void testEmptyHistory() {
         List<Transaction> list = history.getAllTransactions();
         assertNotNull("List should be empty, not null", list);
@@ -79,7 +80,6 @@ public class TransactionHistoryTest {
      * Tests that adding a null transaction throws an
      * IllegalArgumentException.
      */
-    @Test
     public void testAddNullTransaction() {
         try {
             history.addTransaction(null);
