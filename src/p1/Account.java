@@ -16,7 +16,7 @@ public class Account implements Serializable {
 
     private double balance;
     private int streakCount;
-    private double baseInterestRate = 0.02; 
+    private double baseInterestRate = 0.02;
     private double activeBoostRate;
     private LocalDateTime boostExpiresAt;
     private LocalDateTime lastInterestPaymentAt;
@@ -30,11 +30,14 @@ public class Account implements Serializable {
         this.lastInterestPaymentAt = LocalDateTime.now();
     }
 
+
     /**
      * Constructs an account from set values.
      * 
-     * @param startingBalance The initial balance retrieved from the file.
-     * @param startingStreak The initial streak count retrieved from the file.
+     * @param startingBalance
+     *            The initial balance retrieved from the file.
+     * @param startingStreak
+     *            The initial streak count retrieved from the file.
      */
     public Account(double startingBalance, int startingStreak) {
         this.balance = startingBalance;
@@ -42,37 +45,59 @@ public class Account implements Serializable {
         this.lastInterestPaymentAt = LocalDateTime.now();
     }
 
+
     /**
      * Adds amount to balance and increments streakCount by 1.
      * 
-     * @param amount The amount of money to deposit.
-     * @throws InvalidAmountException if the number input is not within the valid number range.
+    /**
+     * Adds amount to balance and increments streakCount by 1.
+     *
+     * @param amount
+     *            The amount of money to deposit.
+     * @throws InvalidAmountException
+     *             if the number input is not within the valid number
+     *             range.
      */
     public void deposit(double amount) throws InvalidAmountException {
         if (Double.isNaN(amount) || Double.isInfinite(amount) || amount <= 0) {
-            throw new InvalidAmountException("Deposit amount must be positive.");
+            throw new InvalidAmountException(
+                "Deposit amount must be positive.");
         }
         this.balance += amount;
         this.streakCount += 1;
     }
 
+
     /**
      * Subtracts amount from balance and resets streakCount to 0.
      * 
-     * @param amount The amount of money to withdraw.
-     * @throws InvalidAmountException if the number input is not within the valid number range.
-     * @throws InsufficientFundsException if the withdrawal amount is greater than the current balance.
+    /**
+     * Subtracts amount from balance and resets streakCount to 0.
+     *
+     * @param amount
+     *            The amount of money to withdraw.
+     * @throws InvalidAmountException
+     *             if the number input is not within the valid number
+     *             range.
+     * @throws InsufficientFundsException
+     *             if the withdrawal amount is greater than the current
+     *             balance.
      */
-    public void withdraw(double amount) throws InvalidAmountException, InsufficientFundsException {
+    public void withdraw(double amount)
+        throws InvalidAmountException,
+        InsufficientFundsException {
         if (Double.isNaN(amount) || Double.isInfinite(amount) || amount <= 0) {
-            throw new InvalidAmountException("Withdrawal amount must be positive.");
+            throw new InvalidAmountException(
+                "Withdrawal amount must be positive.");
         }
         if (amount > this.balance) {
-            throw new InsufficientFundsException("Insufficient funds for withdrawal.");
+            throw new InsufficientFundsException(
+                "Insufficient funds for withdrawal.");
         }
         this.balance -= amount;
         this.streakCount = 0;
     }
+
 
     /**
      * Returns current balance.
@@ -83,6 +108,7 @@ public class Account implements Serializable {
         return this.balance;
     }
 
+
     /**
      * Returns current streak count.
      * 
@@ -92,39 +118,49 @@ public class Account implements Serializable {
         return this.streakCount;
     }
 
+
     /**
      * Replaces current active boost with a new one.
      * 
-     * @param boost The InterestBoost object containing the additional rate and duration.
+     * @param boost
+     *            The InterestBoost object containing the additional rate and
+     *            duration.
      */
     public void applyInterestBoost(InterestBoost boost) {
         this.activeBoostRate = boost.getAdditionalRate();
-        this.boostExpiresAt = LocalDateTime.now().plus(boost.getDuration()); 
+        this.boostExpiresAt = LocalDateTime.now().plus(boost.getDuration());
     }
 
+
     /**
-     * Clears activeBoostRate if expired and then returns baseInterestRate plus activeBoostRate.
+     * Clears activeBoostRate if expired and then returns baseInterestRate plus
+     * activeBoostRate.
      * 
      * @return The combined active annual interest rate.
      */
     public double getCurrentAnnualRate() {
-        if (boostExpiresAt != null && LocalDateTime.now().isAfter(boostExpiresAt)) {
+        if (boostExpiresAt != null && LocalDateTime.now().isAfter(
+            boostExpiresAt)) {
             this.activeBoostRate = 0.0;
             this.boostExpiresAt = null;
         }
         return this.baseInterestRate + this.activeBoostRate;
     }
 
+
     /**
-     * Computes time since last interest payment and adds balance * getCurrentAnnualRate() * (elapsed days / 365).
+     * Computes time since last interest payment and adds balance *
+     * getCurrentAnnualRate() * (elapsed days / 365).
      * Sets lastInterestPaymentAt to the current time.
      */
     public void payInterest() {
         LocalDateTime now = LocalDateTime.now();
-        long daysElapsed = ChronoUnit.DAYS.between(this.lastInterestPaymentAt, now);
-        
+        long daysElapsed = ChronoUnit.DAYS.between(this.lastInterestPaymentAt,
+            now);
+
         if (daysElapsed > 0) {
-            double interestAccrued = this.balance * getCurrentAnnualRate() * (daysElapsed / 365.0);
+            double interestAccrued = this.balance * getCurrentAnnualRate()
+                * (daysElapsed / 365.0);
             this.balance += interestAccrued;
             this.lastInterestPaymentAt = now;
         }

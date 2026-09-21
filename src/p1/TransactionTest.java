@@ -7,6 +7,9 @@ import org.junit.Test;
 // -------------------------------------------------------------------------
 /**
  * Tests the Transaction class.
+ * This test class verifies that transactions are created correctly,
+ * invalid transaction data is rejected, and transaction information
+ * can be retrieved as expected.
  * 
  * @author galve
  * @version Sep 14, 2026
@@ -22,7 +25,7 @@ public class TransactionTest {
 
     // ----------------------------------------------------------
     /**
-     * 
+     * Creates a valid deposit transaction for use in the test methods.
      */
     @Before
     public void setUp() {

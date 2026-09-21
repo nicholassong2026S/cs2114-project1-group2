@@ -9,6 +9,8 @@ import java.util.List;
 // -------------------------------------------------------------------------
 /**
  * Tests the TransactionHistory class.
+ * These tests verify that transactions can be added and retrieved,
+ * an empty history behaves correctly, and null transactions are rejected.
  * 
  * @author galve
  * @version Sep 14, 2026
@@ -27,7 +29,8 @@ public class TransactionHistoryTest {
 
     // ----------------------------------------------------------
     /**
-     * 
+     * Creates a new transaction history and sample transactions
+     * used by the test methods.
      */
     @Before
     public void setUp() {
@@ -40,7 +43,8 @@ public class TransactionHistoryTest {
 
     // ----------------------------------------------------------
     /**
-     * 
+     * Tests that transactions can be added to the history and
+     * retrieved in the order they were added.
      */
     @Test
     public void testAddAndRetrieveTransactions() {
@@ -59,7 +63,8 @@ public class TransactionHistoryTest {
 
     // ----------------------------------------------------------
     /**
-     * 
+     * Tests that a newly created transaction history is empty
+     * and returns a non-null list of transactions.
      */
     @Test
     public void testEmptyHistory() {
@@ -71,14 +76,14 @@ public class TransactionHistoryTest {
 
     // ----------------------------------------------------------
     /**
-     * 
+     * Tests that adding a null transaction throws an
+     * IllegalArgumentException.
      */
     @Test
     public void testAddNullTransaction() {
         try {
             history.addTransaction(null);
-            fail(
-                "Expected an IllegalArgumentException to be thrown for "
+            fail("Expected an IllegalArgumentException to be thrown for "
                 + "null transactions.");
         }
         catch (IllegalArgumentException e) {
