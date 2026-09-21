@@ -5,9 +5,9 @@ import java.time.format.DateTimeFormatter;
 
 // -------------------------------------------------------------------------
 /**
- * Write a one-sentence summary of your class here.
- * Follow it with additional details about its purpose, what abstraction
- * it represents, and how to use it.
+ * A record of a deposit or withdrawal transaction.
+ * This class captures the type of transaction, the amount moved, the
+ * resulting account balance, and the exact time it occurred.
  * 
  * @author galve
  * @version Sep 14, 2026
