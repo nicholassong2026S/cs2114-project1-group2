@@ -71,16 +71,14 @@ public class TransactionHistoryTest extends TestCase {
      * 
      */
     public void testAddNullTransaction() {
-        Exception thrown = null;
         try {
             history.addTransaction(null);
+            fail(
+                "Expected an IllegalArgumentException to be thrown for "
+                + "null transactions.");
         }
         catch (IllegalArgumentException e) {
-            thrown = e;
+            assertTrue(e.getMessage().contains("null"));
         }
-        assertNotNull(
-            "Expected an IllegalArgumentException for null transaction",
-            thrown);
-        assertTrue(thrown.getMessage().contains("null"));
     }
 }

@@ -14,7 +14,7 @@ import student.TestCase;
 public class TransactionTest extends TestCase {
     // ~ Fields ................................................................
 
-    private Transaction depositTx;
+    private Transaction validDeposit;
 
     // ~ Constructors ..........................................................
 
@@ -25,7 +25,7 @@ public class TransactionTest extends TestCase {
      * 
      */
     public void setUp() {
-        depositTx = new Transaction("DEPOSIT", 50.0, 150.0);
+        validDeposit = new Transaction("DEPOSIT", 50.0, 150.0);
     }
 
 
@@ -34,45 +34,54 @@ public class TransactionTest extends TestCase {
      * Place a description of your method here.
      */
     public void testValidTransactionCreation() {
-        assertEquals("DEPOSIT", depositTx.getType());
-        assertEquals(50.0, depositTx.getAmount(), 0.001);
-        assertEquals(150.0, depositTx.getResultingBalance(), 0.001);
-        assertNotNull(depositTx.getTimestamp());
+        assertEquals("DEPOSIT", validDeposit.getType());
+        assertEquals(50.0, validDeposit.getAmount(), 0.001);
+        assertEquals(150.0, validDeposit.getResultingBalance(), 0.001);
+        assertNotNull(validDeposit.getTimestamp());
     }
 
 
     // ----------------------------------------------------------
     /**
-     * Place a description of your method here.
+     * Tests the normal case of creating a valid transaction and
+     * verifying the getter methods return expected values.
+     */
+    public void testValidTransaction() {
+        assertEquals("DEPOSIT", validDeposit.getType());
+        assertEquals(50.0, validDeposit.getAmount(), 0.01);
+        assertEquals(150.0, validDeposit.getResultingBalance(), 0.01);
+        assertNotNull(validDeposit.getTimestamp());
+    }
+
+
+    /**
+     * Tests the bad input case of providing a negative transaction amount.
      */
     public void testNegativeAmountTransaction() {
-        Exception thrown = null;
         try {
-            new Transaction("WITHDRAW", -50.0, 150.0);
+            validDeposit = new Transaction("WITHDRAW", -50.0, 150.0);
+            fail(
+                "Expected an IllegalArgumentException to be thrown for "
+                + "negative amounts.");
         }
         catch (IllegalArgumentException e) {
-            thrown = e;
+            assertTrue(e.getMessage().contains("negative"));
         }
-        assertNotNull(
-            "Expected an IllegalArgumentException for negative amount", thrown);
-        assertTrue(thrown.getMessage().contains("negative"));
     }
 
 
-    // ----------------------------------------------------------
     /**
-     * Place a description of your method here.
+     * Tests providing an invalid string for the transaction type.
      */
     public void testInvalidTypeTransaction() {
-        Exception thrown = null;
         try {
-            new Transaction("TRANSFER", 50.0, 150.0);
+            validDeposit = new Transaction("TRANSFER", 50.0, 150.0);
+            fail(
+                "Expected an IllegalArgumentException to be thrown for "
+                + "invalid types.");
         }
         catch (IllegalArgumentException e) {
-            thrown = e;
+            assertTrue(e.getMessage().contains("DEPOSIT or WITHDRAW"));
         }
-        assertNotNull("Expected an IllegalArgumentException for invalid type",
-            thrown);
-        assertTrue(thrown.getMessage().contains("DEPOSIT or WITHDRAW"));
     }
 }
