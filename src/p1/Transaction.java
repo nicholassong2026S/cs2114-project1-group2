@@ -22,11 +22,19 @@ public class Transaction {
     // ~ Constructors ..........................................................
     // ----------------------------------------------------------
     /**
-     * Create a new Transaction object.
+     * Creates a new Transaction object with the specified type, amount,
+     * and resulting account balance. The timestamp is set to the current
+     * date and time.
      * 
      * @param type
+     *            the type of transaction, either "DEPOSIT" or "WITHDRAW"
      * @param amount
+     *            the amount of money involved in the transaction
      * @param resultingBalance
+     *            the account balance after the transaction
+     * @throws IllegalArgumentException
+     *             if the amount is negative or the
+     *             transaction type is invalidf
      */
     public Transaction(String type, double amount, double resultingBalance) {
         if (amount < 0) {
@@ -48,9 +56,9 @@ public class Transaction {
     // ~Public Methods ........................................................
     // ----------------------------------------------------------
     /**
-     * Place a description of your method here.
+     * Returns the type of this transaction. *
      * 
-     * @return
+     * @return the transaction type, either "DEPOSIT" or "WITHDRAW"
      */
     public String getType() {
         return type;
@@ -59,9 +67,9 @@ public class Transaction {
 
     // ----------------------------------------------------------
     /**
-     * Place a description of your method here.
+     * Returns the amount involved in this transaction. *
      * 
-     * @return
+     * @return the transaction amount
      */
     public double getAmount() {
         return amount;
@@ -70,9 +78,9 @@ public class Transaction {
 
     // ----------------------------------------------------------
     /**
-     * Place a description of your method here.
+     * Returns the account balance after this transaction was completed.
      * 
-     * @return
+     * @return the resulting account balance
      */
     public double getResultingBalance() {
         return resultingBalance;
@@ -81,9 +89,9 @@ public class Transaction {
 
     // ----------------------------------------------------------
     /**
-     * Place a description of your method here.
+     * Returns the date and time when this transaction occurred.
      * 
-     * @return
+     * @return the transaction timestamp.
      */
     public LocalDateTime getTimestamp() {
         return timestamp;
@@ -91,13 +99,16 @@ public class Transaction {
 
 
     /**
+     * Returns a formatted description of this transaction.
      * 
+     * @return a string containing the timestamp, transaction type,
+     *         amount, and resulting balance.
      */
     @Override
     public String toString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(
             "yyyy-MM-dd HH:mm:ss");
         return String.format("[%s] %s: $%.2f | Balance: $%.2f", timestamp
-            .format(formatter), type, resultingBalance);
+            .format(formatter), type, amount, resultingBalance);
     }
 }

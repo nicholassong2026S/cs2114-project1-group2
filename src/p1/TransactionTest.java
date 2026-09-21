@@ -4,9 +4,10 @@ import student.TestCase;
 
 // -------------------------------------------------------------------------
 /**
- * Write a one-sentence summary of your class here.
- * Follow it with additional details about its purpose, what abstraction
- * it represents, and how to use it.
+ * Tests the methods and behavior of the Transaction class.
+ * This test class verifies that transactions are created correctly,
+ * invalid transaction data is rejected, and transaction information
+ * can be retrieved as expected.
  * 
  * @author galve
  * @version Sep 14, 2026
@@ -22,7 +23,7 @@ public class TransactionTest extends TestCase {
 
     // ----------------------------------------------------------
     /**
-     * 
+     * Creates a valid deposit transaction for use in the test methods.
      */
     public void setUp() {
         validDeposit = new Transaction("DEPOSIT", 50.0, 150.0);

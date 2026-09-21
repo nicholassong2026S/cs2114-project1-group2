@@ -6,9 +6,9 @@ import java.util.List;
 
 // -------------------------------------------------------------------------
 /**
- * Write a one-sentence summary of your class here.
- * Follow it with additional details about its purpose, what abstraction
- * it represents, and how to use it.
+ * Tests the methods and behavior of the TransactionHistory class.
+ * These tests verify that transactions can be added and retrieved,
+ * an empty history behaves correctly, and null transactions are rejected.
  * 
  * @author galve
  * @version Sep 14, 2026
@@ -27,7 +27,8 @@ public class TransactionHistoryTest extends TestCase {
 
     // ----------------------------------------------------------
     /**
-     * 
+     * Creates a new transaction history and sample transactions
+     * used by the test methods.
      */
     public void setUp() {
         history = new TransactionHistory();
@@ -39,7 +40,8 @@ public class TransactionHistoryTest extends TestCase {
 
     // ----------------------------------------------------------
     /**
-     * 
+     * Tests that transactions can be added to the history and
+     * retrieved in the order they were added.
      */
     public void testAddAndRetrieveTransactions() {
         history.addTransaction(t1);
@@ -57,7 +59,8 @@ public class TransactionHistoryTest extends TestCase {
 
     // ----------------------------------------------------------
     /**
-     * 
+     * Tests that a newly created transaction history is empty
+     * and returns a non-null list of transactions.
      */
     public void testEmptyHistory() {
         List<Transaction> list = history.getAllTransactions();
@@ -68,13 +71,13 @@ public class TransactionHistoryTest extends TestCase {
 
     // ----------------------------------------------------------
     /**
-     * 
+     * Tests that adding a null transaction throws an
+     * IllegalArgumentException.
      */
     public void testAddNullTransaction() {
         try {
             history.addTransaction(null);
-            fail(
-                "Expected an IllegalArgumentException to be thrown for "
+            fail("Expected an IllegalArgumentException to be thrown for "
                 + "null transactions.");
         }
         catch (IllegalArgumentException e) {
