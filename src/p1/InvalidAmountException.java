@@ -10,8 +10,6 @@ package p1;
 public class InvalidAmountException
     extends Exception
 {
-    private static final long serialVersionUID = 1L;
-
     // ----------------------------------------------------------
     /**
      * Create a new InvalidAmountException object.

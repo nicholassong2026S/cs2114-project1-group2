@@ -13,12 +13,11 @@ public class AccountFileManager {
 
     // ----------------------------------------------------------
     /**
-     * Saves the account (balance, streak, interest state) to filePath using
-     * Java object serialization.
+     * Writes balance and streak to filePath as one CSV line.
      * 
-     * @param account the account to save
-     * @param filePath the file to write to
-     * @throws IOException if the file cannot be written
+     * @param account
+     * @param filePath
+     * @throws IOException
      */
     static void saveAccount(Account account, String filePath)
         throws IOException {
@@ -31,14 +30,13 @@ public class AccountFileManager {
 
     // ----------------------------------------------------------
     /**
-     * Reads a serialized account from filePath and returns it.
+     * Reads the CSV line from the filePath and returns a new Account built from
+     * it.
      * 
-     * @param filePath the file to read from
-     * @return the Account stored in the file
-     * @throws IOException if the file is missing, empty, or not a valid
-     *             serialized object
-     * @throws ClassNotFoundException if the stored object's class cannot be
-     *             found
+     * @param filePath
+     * @return Account
+     * @throws IOException
+     * @throws ClassNotFoundException
      */
     static Account loadAccount(String filePath)
         throws IOException,

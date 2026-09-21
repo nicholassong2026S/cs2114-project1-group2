@@ -1,19 +1,14 @@
-package p1;
-
-import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
 /**
  * Holds current balance, streak count, interest rate, and any active interest
- * boost.
+ * boost[cite: 1].
  * 
- * @author Group 2: Andersson, Luke, Nicholas, Ashutosh
+ * @author Group 2: Andersson, Luke, Nicholas, Ashutosh[cite: 1]
  * @version 2026.09.21
  */
-public class Account implements Serializable {
-    private static final long serialVersionUID = 1L;
-
+public class Account {
     private double balance;
     private int streakCount;
     private double baseInterestRate = 0.02;
@@ -22,7 +17,7 @@ public class Account implements Serializable {
     private LocalDateTime lastInterestPaymentAt;
 
     /**
-     * Constructs a new account with a balance of 0.0 and a streak of 0.
+     * Constructs a new account with a balance of 0.0 and a streak of 0[cite: 5].
      */
     public Account() {
         this.balance = 0.0;
@@ -32,7 +27,7 @@ public class Account implements Serializable {
 
 
     /**
-     * Constructs an account from set values.
+     * Constructs an account from set values[cite: 5].
      * 
      * @param startingBalance
      *            The initial balance retrieved from the file.
@@ -47,21 +42,14 @@ public class Account implements Serializable {
 
 
     /**
-     * Adds amount to balance and increments streakCount by 1.
+     * Adds amount to balance and increments streakCount by 1[cite: 5].
      * 
-    /**
-     * Adds amount to balance and increments streakCount by 1.
-     *
-     * @param amount
-     *            The amount of money to deposit.
-     * @throws InvalidAmountException
-     *             if the number input is not within the valid number
-     *             range.
+     * @param amount The amount of money to deposit.
+     * @throws InvalidAmountException if the number input is not within the valid number range[cite: 5].
      */
     public void deposit(double amount) throws InvalidAmountException {
-        if (Double.isNaN(amount) || Double.isInfinite(amount) || amount <= 0) {
-            throw new InvalidAmountException(
-                "Deposit amount must be positive.");
+        if (amount <= 0) {
+            throw new InvalidAmountException("Deposit amount must be positive.");
         }
         this.balance += amount;
         this.streakCount += 1;
@@ -69,26 +57,15 @@ public class Account implements Serializable {
 
 
     /**
-     * Subtracts amount from balance and resets streakCount to 0.
+     * Subtracts amount from balance and resets streakCount to 0[cite: 5].
      * 
-    /**
-     * Subtracts amount from balance and resets streakCount to 0.
-     *
-     * @param amount
-     *            The amount of money to withdraw.
-     * @throws InvalidAmountException
-     *             if the number input is not within the valid number
-     *             range.
-     * @throws InsufficientFundsException
-     *             if the withdrawal amount is greater than the current
-     *             balance.
+     * @param amount The amount of money to withdraw.
+     * @throws InvalidAmountException if the number input is not within the valid number range[cite: 5].
+     * @throws InsufficientFundsException if the withdrawal amount is greater than the current balance[cite: 5].
      */
-    public void withdraw(double amount)
-        throws InvalidAmountException,
-        InsufficientFundsException {
-        if (Double.isNaN(amount) || Double.isInfinite(amount) || amount <= 0) {
-            throw new InvalidAmountException(
-                "Withdrawal amount must be positive.");
+    public void withdraw(double amount) throws InvalidAmountException, InsufficientFundsException {
+        if (amount <= 0) {
+            throw new InvalidAmountException("Withdrawal amount must be positive.");
         }
         if (amount > this.balance) {
             throw new InsufficientFundsException(
@@ -100,9 +77,9 @@ public class Account implements Serializable {
 
 
     /**
-     * Returns current balance.
+     * Returns current balance[cite: 5].
      * 
-     * @return The current balance in dollars.
+     * @return The current balance in dollars[cite: 3].
      */
     public double getBalance() {
         return this.balance;
@@ -110,9 +87,9 @@ public class Account implements Serializable {
 
 
     /**
-     * Returns current streak count.
+     * Returns current streak count[cite: 5].
      * 
-     * @return Consecutive deposits with no withdrawal in between.
+     * @return Consecutive deposits with no withdrawal in between[cite: 3].
      */
     public int getStreak() {
         return this.streakCount;
@@ -120,7 +97,7 @@ public class Account implements Serializable {
 
 
     /**
-     * Replaces current active boost with a new one.
+     * Replaces current active boost with a new one[cite: 6].
      * 
      * @param boost
      *            The InterestBoost object containing the additional rate and
@@ -133,8 +110,7 @@ public class Account implements Serializable {
 
 
     /**
-     * Clears activeBoostRate if expired and then returns baseInterestRate plus
-     * activeBoostRate.
+     * Clears activeBoostRate if expired and then returns baseInterestRate plus activeBoostRate[cite: 6].
      * 
      * @return The combined active annual interest rate.
      */
@@ -149,9 +125,8 @@ public class Account implements Serializable {
 
 
     /**
-     * Computes time since last interest payment and adds balance *
-     * getCurrentAnnualRate() * (elapsed days / 365).
-     * Sets lastInterestPaymentAt to the current time.
+     * Computes time since last interest payment and adds balance * getCurrentAnnualRate() * (elapsed days / 365)[cite: 6].
+     * Sets lastInterestPaymentAt to the current time[cite: 6].
      */
     public void payInterest() {
         LocalDateTime now = LocalDateTime.now();

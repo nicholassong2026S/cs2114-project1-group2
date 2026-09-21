@@ -1,34 +1,27 @@
-package p1;
-
 import java.io.IOException;
 import java.util.Scanner;
 
 /**
- * Has the console menu loop and brings all of the other classes together.
+ * Has the console menu loop and brings all of the other classes together[cite: 1].
  * 
- * @author Group 2: Andersson, Luke, Nicholas, Ashutosh
+ * @author Group 2: Andersson, Luke, Nicholas, Ashutosh[cite: 1]
  * @version 2026.09.21
  */
 public class BankingApp {
     private Account account;
     private StreakRewards streakRewards;
-    private TransactionHistory history;
     private Scanner scanner;
 
     /**
-     * Constructs the BankingApp, initializing the scanner, a fresh Account,
-     * StreakRewards, and an empty TransactionHistory. main() replaces the
-     * Account if one was saved.
+     * Constructs the BankingApp, initializing the scanner and StreakRewards.
      */
     public BankingApp() {
         this.scanner = new Scanner(System.in);
-        this.account = new Account();
         this.streakRewards = new StreakRewards(); 
-        this.history = new TransactionHistory();
     }
 
     /**
-     * Starting point. Loads or creates an Account and then calls run().
+     * Starting point. Loads or creates an Account and then calls run()[cite: 9].
      * 
      * @param args Command line arguments.
      */
@@ -37,7 +30,7 @@ public class BankingApp {
         
         try {
             app.account = AccountFileManager.loadAccount("balance.csv"); 
-        } catch (IOException | ClassNotFoundException e) {
+        } catch (IOException e) {
             System.out.println("No existing account found. Creating a new one.");
             app.account = new Account();
         }
@@ -46,7 +39,7 @@ public class BankingApp {
     }
 
     /**
-     * Displays menu loop until user exits.
+     * Displays menu loop until user exits[cite: 9].
      */
     public void run() {
         boolean running = true;
@@ -57,8 +50,7 @@ public class BankingApp {
             System.out.println("3. Withdraw");
             System.out.println("4. View Streak Coins");
             System.out.println("5. Redeem Streak Coins");
-            System.out.println("6. View Transaction History");
-            System.out.println("7. Exit");
+            System.out.println("6. Exit");
             System.out.print("Choose an option: ");
             
             String choice = scanner.nextLine();
@@ -69,8 +61,7 @@ public class BankingApp {
                 case "3": withdraw(); break;
                 case "4": viewStreakCoins(); break;
                 case "5": redeemStreakCoins(); break;
-                case "6": viewTransactionHistory(); break;
-                case "7": 
+                case "6": 
                     running = false; 
                     try {
                         AccountFileManager.saveAccount(account, "balance.csv"); 
@@ -84,39 +75,33 @@ public class BankingApp {
     }
 
     /**
-     * Pays interest and then prints current balance, streak, and interest rate.
+     * Pays interest and then prints current balance, streak, and interest rate[cite: 9].
      */
     public void viewBalance() {
         account.payInterest(); 
         System.out.printf("Current Balance: $%.2f\n", account.getBalance());
         System.out.println("Current Streak: " + account.getStreak());
-        System.out.printf("Current Interest Rate: %.2f%%\n", account.getCurrentAnnualRate() * 100);
+        System.out.println("Current Interest Rate: " + (account.getCurrentAnnualRate() * 100) + "%");
     }
 
     /**
      * Prompts for an amount, validates it, and then deposits it into the account. 
-     * Records the deposit in the transaction history. Adds StreakCoins based on
-     * streak. Prints the new balance, streak, and Streak Coins earned. If the value does not pass validation, returns an 
-     * issue and then reprompts for the value.
+     * Adds StreakCoins based on streak. Prints the new balance, streak, and 
+     * Streak Coins earned. If the value does not pass validation, returns an 
+     * issue and then reprompts for the value[cite: 9].
      */
     public void deposit() {
         while (true) {
             try {
                 double amount = promptForAmount("Enter deposit amount: "); 
                 account.deposit(amount);
-                history.addTransaction(
-                    new Transaction("DEPOSIT", amount, account.getBalance()));
-
-                int coinsBefore = streakRewards.getStreakCoinBalance();
                 streakRewards.earnStreakCoins(account.getStreak());
-                int coinsEarned = streakRewards.getStreakCoinBalance() - coinsBefore;
                 
                 System.out.printf("Deposited $%.2f successfully.\n", amount);
-                System.out.printf("New Balance: $%.2f | Streak: %d | Streak Coins Earned: %d (Total: %d)\n", 
-                                  account.getBalance(), account.getStreak(), coinsEarned,
-                                  streakRewards.getStreakCoinBalance());
+                System.out.printf("New Balance: $%.2f | Streak: %d | Streak Coins: %d\n", 
+                                  account.getBalance(), account.getStreak(), streakRewards.getStreakCoinBalance());
                 break;
-            } catch (EmptyInputException | NonNumericInputException | InvalidAmountException e) {
+            } catch (Exception e) {
                 System.out.println(e.getMessage() + " Please try again."); 
             }
         }
@@ -124,38 +109,25 @@ public class BankingApp {
 
     /**
      * Prompts for an amount, validates it, and then withdraws it from the account. 
-     * Records the withdrawal in the transaction history and prints the new
-     * balance. If the value does not pass validation, returns an issue and then
-     * reprompts for the value.
+     * Prints the new balance. If the value does not pass validation, returns an 
+     * issue and then reprompts for the value[cite: 9].
      */
     public void withdraw() {
         while (true) {
             try {
                 double amount = promptForAmount("Enter withdrawal amount: "); 
                 account.withdraw(amount);
-                history.addTransaction(
-                    new Transaction("WITHDRAW", amount, account.getBalance()));
                 System.out.printf("Withdrew $%.2f successfully.\n", amount);
                 System.out.printf("New Balance: $%.2f\n", account.getBalance());
                 break;
-            } catch (EmptyInputException | NonNumericInputException | InvalidAmountException
-                     | InsufficientFundsException e) {
+            } catch (Exception e) {
                 System.out.println(e.getMessage() + " Please try again."); 
             }
         }
     }
 
     /**
-     * Prints every deposit and withdrawal made this session, oldest first, or a
-     * message if there have been none.
-     */
-    public void viewTransactionHistory() {
-        System.out.println("\n--- Transaction History ---");
-        history.printHistory();
-    }
-
-    /**
-     * Prints the current StreakCoin balance.
+     * Prints the current StreakCoin balance[cite: 9].
      */
     public void viewStreakCoins() {
         System.out.println("Streak Coins: " + streakRewards.getStreakCoinBalance()); 
@@ -163,7 +135,7 @@ public class BankingApp {
 
     /**
      * Prompts for a whole-number Streak Coin amount, validates it, and then 
-     * redeems the coins and applies the respective interestBoost.
+     * redeems the coins and applies the respective interestBoost[cite: 9, 10].
      */
     public void redeemStreakCoins() {
         while (true) {
@@ -173,21 +145,20 @@ public class BankingApp {
                 account.applyInterestBoost(boost);
                 System.out.println("Interest boost applied successfully!");
                 break;
-            } catch (EmptyInputException | NonNumericInputException | InvalidAmountException
-                     | InsufficientStreakCoinsException e) {
+            } catch (Exception e) {
                 System.out.println(e.getMessage() + " Please try again."); 
             }
         }
     }
 
     /**
-     * Prints prompt, reads one line from the console, and returns InputValidator.validateAmount() of it.
+     * Prints prompt, reads one line from the console, and returns InputValidator.validateAmount() of it[cite: 10].
      * 
      * @param prompt The prompt to display to the user.
      * @return The validated double amount.
-     * @throws EmptyInputException If the input is empty.
-     * @throws NonNumericInputException If the input contains letters or symbols.
-     * @throws InvalidAmountException If the input is negative or out of range.
+     * @throws EmptyInputException If the input is empty[cite: 10].
+     * @throws NonNumericInputException If the input contains letters or symbols[cite: 10].
+     * @throws InvalidAmountException If the input is negative or out of range[cite: 10].
      */
     private double promptForAmount(String prompt) throws EmptyInputException, NonNumericInputException, InvalidAmountException {
         System.out.print(prompt);
@@ -196,13 +167,13 @@ public class BankingApp {
     }
 
     /**
-     * Prints prompt, reads one line from the console, and returns InputValidator.validateWholeNumber() of it.
+     * Prints prompt, reads one line from the console, and returns InputValidator.validateWholeNumber() of it[cite: 10].
      * 
      * @param prompt The prompt to display to the user.
      * @return The validated integer amount.
-     * @throws EmptyInputException If the input is empty.
-     * @throws NonNumericInputException If the input contains letters, symbols, or decimals.
-     * @throws InvalidAmountException If the input is negative or out of range.
+     * @throws EmptyInputException If the input is empty[cite: 10].
+     * @throws NonNumericInputException If the input contains letters, symbols, or decimals[cite: 10].
+     * @throws InvalidAmountException If the input is negative or out of range[cite: 10].
      */
     private int promptForWholeNumber(String prompt) throws EmptyInputException, NonNumericInputException, InvalidAmountException {
         System.out.print(prompt);

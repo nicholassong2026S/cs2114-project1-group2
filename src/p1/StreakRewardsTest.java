@@ -1,14 +1,8 @@
-package p1;
+import student.TestCase;
 
-import static org.junit.Assert.*;
-import org.junit.Before;
-import org.junit.Test;
-
-public class StreakRewardsTest {
+public class StreakRewardsTest extends TestCase {
 
     private StreakRewards rewards;
-
-    @Before
 
     public void setUp() {
         rewards = new StreakRewards();
@@ -17,7 +11,6 @@ public class StreakRewardsTest {
     // -------------------------
     // Constructor Test
     // -------------------------
-    @Test
     public void testConstructor() {
         assertEquals(0, rewards.getStreakCoinBalance());
     }
@@ -25,28 +18,21 @@ public class StreakRewardsTest {
     // -------------------------
     // earnStreakCoins Tests
     // -------------------------
-    @Test
     public void testEarnStreakCoinsNormal() {
         rewards.earnStreakCoins(3);   // base reward only
         assertEquals(5, rewards.getStreakCoinBalance());
     }
-
-    @Test
 
     public void testEarnStreakCoinsMilestone() {
         rewards.earnStreakCoins(5);   // base + milestone
         assertEquals(25, rewards.getStreakCoinBalance());
     }
 
-    @Test
-
     public void testEarnStreakCoinsMultipleCalls() {
         rewards.earnStreakCoins(3);   // +5
         rewards.earnStreakCoins(5);   // +25
         assertEquals(30, rewards.getStreakCoinBalance());
     }
-
-    @Test
 
     public void testEarnStreakCoinsZeroOrNegative() {
         rewards.earnStreakCoins(0);
@@ -59,7 +45,6 @@ public class StreakRewardsTest {
     // -------------------------
     // redeemStreakCoins Tests
     // -------------------------
-    @Test
     public void testRedeemStreakCoinsNormal() throws Exception {
         rewards.earnStreakCoins(5);   // +25 coins
         rewards.earnStreakCoins(5);   // +25 coins → total 50
@@ -69,8 +54,6 @@ public class StreakRewardsTest {
         assertEquals(25, rewards.getStreakCoinBalance());  // 50 - 25
         assertNotNull(boost);
     }
-
-    @Test
 
     public void testRedeemStreakCoinsInvalidAmount() {
         Exception thrown = null;
@@ -87,8 +70,6 @@ public class StreakRewardsTest {
 
         assertNotNull(thrown);
     }
-
-    @Test
 
     public void testRedeemStreakCoinsInsufficient() {
         Exception thrown = null;

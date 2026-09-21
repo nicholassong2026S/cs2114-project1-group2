@@ -11,8 +11,6 @@ package p1;
 public class NonNumericInputException
     extends Exception
 {
-    private static final long serialVersionUID = 1L;
-
     // ----------------------------------------------------------
     /**
      * Create a new NonNumericInputException object.
